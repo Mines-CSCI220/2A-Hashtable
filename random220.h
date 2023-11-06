@@ -4,9 +4,10 @@
  * computer simulation.
  * khellman@mines.edu
  *
- * The underlying routines use the rand prng, this can be seeded with
- * srand( seed ) (part of the libc implementation) or this module's
- * seed_now().
+ * The underlying routines uses a statistically sound, albeit small, psuedo
+ * random number generator well accepted in the simulation community.  It is 
+ * small, fast and sufficient for our needs.  The pRNG can be seeded with
+ * seed_prng( seed ) or seed_now() both provided by this module.
  */
 
 #ifndef RANDOM220_H
