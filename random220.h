@@ -4,8 +4,8 @@
  * computer simulation.
  * khellman@mines.edu
  *
- * The underlying routines use the drand48 prng, this can be seeded with
- * srand48( long seed ) (part of the libc implementation) or this module's
+ * The underlying routines use the rand prng, this can be seeded with
+ * srand( seed ) (part of the libc implementation) or this module's
  * seed_now().
  */
 

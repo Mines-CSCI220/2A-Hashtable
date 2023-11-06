@@ -5,16 +5,23 @@
 */
 
 #include <cmath>
-#include <iostream>
+#include <cstdlib>
 #include <cassert>
+#include <iostream>
+#include <chrono>
 
 #include "random220.h"
+
+static double prng()
+{
+	return rand()/double(RAND_MAX);
+}
 
 unsigned long seed_now()
 {
 	using std::chrono::system_clock;
 	unsigned long seed = system_clock::to_time_t( system_clock::now() ); 
-	srand48( seed );
+	srand( seed );
 	std::cerr << "seed_now " << seed << std::endl; 
 	return seed;
 }
@@ -24,7 +31,7 @@ bool bernoulli( const double p )
 	// compilicated stuff, eh?
 	assert( 0<= p );
 	assert( p<= 1 );
-	return drand48() < p;
+	return prng() < p;
 }
 
 bool coinflip( ) { return bernoulli(0.5); }
@@ -32,7 +39,7 @@ bool coinflip( ) { return bernoulli(0.5); }
 double uniform( const double a, const double b )
 {
 	assert( a<=b );
-	return a + drand48()*(b-a);
+	return a + prng()*(b-a);
 }
 
 long equalikely( const long a, const long b )
