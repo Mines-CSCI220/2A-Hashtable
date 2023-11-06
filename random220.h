@@ -43,9 +43,15 @@ void fisher_yates( std::vector<T>& v, size_t count = 0 );
 
 
 /***
- * seeds the generator with the computer's wall clock time, prints the seed to 
+ * seeds the generator from the computer's wall clock time, prints the seed to
  * cerr, and returns the value used.
  */
-unsigned long seed_now();
+long seed_now();
+
+/***
+ * seeds the generator from |s|, prints the seed to cerr, and returns the value
+ * used.
+ */
+long seed_prng( long s );
 
 #endif

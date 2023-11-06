@@ -12,19 +12,51 @@
 
 #include "random220.h"
 
+#define DEFAULT    123456789L  /* initial seed, use 0 < DEFAULT < MODULUS   */
+static long seed = DEFAULT;    /* seed is the state of the generator        */
+
+static const long  MODULUS=    2147483647L;	/* DON'T CHANGE THIS VALUE                   */
 static double prng()
 {
-	return rand()/double(RAND_MAX);
+	/* ---------------------------------------------------------------------
+	 * Random is a Lehmer generator that returns a pseudo-random real number
+	 * uniformly distributed between 0.0 and 1.0.  The period is (m - 1)
+	 * where m = 2,147,483,647 amd the smallest and largest possible values
+	 * are (1 / m) and 1 - (1 / m) respectively.                             
+	 * ---------------------------------------------------------------------   
+	 * From Discrete Event Simulation - A first course
+	 * Leemis & Park
+	 */
+	const long  MULTIPLIER=48271L;     /* use 16807 for the "minimal standard"      */
+
+  	const long Q = MODULUS / MULTIPLIER;
+  	const long R = MODULUS % MULTIPLIER;
+          long t;
+
+	t = MULTIPLIER * (seed % Q) - R * (seed / Q);
+	if (t > 0) 
+		seed = t;
+	else 
+		seed = t + MODULUS;
+	return ((double) seed / MODULUS);
 }
 
-unsigned long seed_now()
+long seed_now()
 {
 	using std::chrono::system_clock;
-	unsigned long seed = system_clock::to_time_t( system_clock::now() ); 
-	srand( seed );
+	seed = system_clock::to_time_t( system_clock::now() ) % MODULUS; 
 	std::cerr << "seed_now " << seed << std::endl; 
 	return seed;
 }
+
+long seed_prng( long s )
+{
+	seed = abs(s) % MODULUS; 
+	std::cerr << "seed_prng " << seed << std::endl; 
+	return seed;
+}
+
+
 
 bool bernoulli( const double p )
 {
