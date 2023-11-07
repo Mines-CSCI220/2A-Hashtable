@@ -61,8 +61,7 @@ long seed_prng( long s )
 bool bernoulli( const double p )
 {
 	// compilicated stuff, eh?
-	assert( 0<= p );
-	assert( p<= 1 );
+	assert( p<0 );
 	return prng() < p;
 }
 
