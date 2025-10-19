@@ -12,8 +12,8 @@ include_directories(.)
 
 # Retrieve the wordlist used by the tests and copy to build directory
 file(
-  DOWNLOAD https://github.com/brokensandals/wordlists/blob/master/lists/enable1.txt ./dictionary.txt 
-  EXPECTED_HASH MD5=9c5811880e43c73b20434ba2f33f0367
+  DOWNLOAD https://raw.githubusercontent.com/brokensandals/wordlists/refs/heads/master/lists/enable1.txt ./dictionary.txt 
+  EXPECTED_HASH MD5=33f2b09e2d9dfb732fa16b5f05a5a8d1
 )
 file(COPY dictionary.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
